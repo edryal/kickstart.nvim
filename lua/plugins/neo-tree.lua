@@ -13,6 +13,7 @@ return {
   cmd = 'Neotree',
   keys = {
     { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+    { '<leader>e', ':Neotree reveal<CR>', desc = 'Explorer', silent = true },
   },
   opts = {
     sources = {
@@ -34,7 +35,9 @@ return {
     window = {
       auto_expand_width = true,
     },
+    hijack_netrw_behavior = 'open_default',
     mappings = {
+      ['<space>'] = 'none',
       ['o'] = {
         'open',
         nowait = true,
@@ -56,6 +59,7 @@ return {
         group_empty_dirs = false,
         mappings = {
           ['\\'] = 'close_window',
+          ['<leader>e'] = 'close_window',
           ['o'] = 'open',
           ['Oc'] = 'order_by_created',
           ['Od'] = 'order_by_diagnostics',
@@ -65,6 +69,7 @@ return {
           ['Os'] = 'order_by_size',
           ['Ot'] = 'order_by_type',
 
+          ['<space>'] = false,
           ['oc'] = false,
           ['od'] = false,
           ['og'] = false,

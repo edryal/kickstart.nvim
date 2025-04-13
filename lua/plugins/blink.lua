@@ -57,7 +57,7 @@ return {
       -- <c-k>: Toggle signature help
       --
       -- See :h blink-cmp-config-keymap for defining your own keymap
-      preset = 'default',
+      preset = 'enter',
 
       -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
       --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -69,16 +69,57 @@ return {
       nerd_font_variant = 'mono',
     },
 
+    cmdline = {
+      keymap = {
+        ['<Tab>'] = { 'accept' },
+        ['<CR>'] = { 'accept_and_enter', 'fallback' },
+      },
+      completion = { menu = { auto_show = true } },
+    },
+
     completion = {
+      list = {
+        selection = {
+          preselect = false,
+          auto_insert = true,
+        },
+      },
       -- By default, you may press `<c-space>` to show the documentation.
       -- Optionally, set `auto_show = true` to show the documentation after a delay.
       documentation = { auto_show = false, auto_show_delay_ms = 500 },
+      trigger = {
+        show_on_keyword = true,
+        show_on_trigger_character = true,
+      },
+      accept = {
+        create_undo_point = true,
+        auto_brackets = {
+          enabled = true,
+          kind_resolution = {
+            enabled = true,
+            blocked_filetypes = {},
+          },
+          semantic_token_resolution = {
+            enabled = true,
+            blocked_filetypes = { 'java' },
+            timeout_ms = 400,
+          },
+        },
+      },
     },
 
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'lazydev' },
+      default = { 'lsp', 'path', 'snippets', 'cmdline', 'lazydev' },
       providers = {
         lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+        cmdline = {
+          min_keyword_length = function(ctx)
+            if ctx.mode == 'cmdline' and string.find(ctx.line, ' ') == nil then
+              return 2
+            end
+            return 0
+          end,
+        },
       },
     },
 

@@ -17,7 +17,7 @@ return {
       },
 
       -- Dashboard
-      dashboard = { enabled = false },
+      dashboard = { enabled = true },
 
       -- Indentation guides
       indent = { enabled = true },

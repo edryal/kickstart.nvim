@@ -44,6 +44,7 @@ return {
       { '<leader>s', group = '[S]earch' },
       { '<leader>f', group = '[F]ind' },
       { '<leader>c', group = '[C]ode' },
+      { '<leader>j', group = '[J]ava' },
       { '<leader>d', group = '[D]ebug' },
       { '<leader>n', group = '[N]otification' },
       { '<leader>g', group = '[G]it', mode = { 'n', 'v' } },

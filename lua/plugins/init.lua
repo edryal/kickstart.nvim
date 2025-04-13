@@ -35,8 +35,14 @@ return {
   -- File explorer
   require 'plugins.neo-tree',
 
+  -- Better cmdline and search
+  require 'plugins.noice',
+
   -- Replacement for Telescope
   require 'plugins.snacks',
+
+  -- Spring Boot support for java
+  require 'plugins.springboot',
 
   -- Fuzzy Finder (files, lsp, etc)
   -- require 'plugins.telescope',

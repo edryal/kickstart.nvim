@@ -9,6 +9,9 @@ return {
     -- Useful status updates for LSP.
     { 'j-hui/fidget.nvim', opts = {} },
 
+    -- Java development
+    'mfussenegger/nvim-jdtls',
+
     -- Allows extra capabilities provided by blink.cmp
     'saghen/blink.cmp',
   },
@@ -129,6 +132,7 @@ return {
       -- Some languages (like typescript) have entire language plugins that can be useful:
       --    https://github.com/pmizio/typescript-tools.nvim
       ts_ls = {},
+      jdtls = {},
 
       lua_ls = {
         -- cmd = { ... },
@@ -157,15 +161,23 @@ return {
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
       'stylua',
+      'java-test',
+      'google-java-format',
+      'java-debug-adapter',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
     require('mason-lspconfig').setup {
-      ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+      ensure_installed = {},
       automatic_installation = false,
       handlers = {
         function(server_name)
+          if server_name == 'jdtls' then
+            return
+          end
+
           local server = servers[server_name] or {}
+
           -- This handles overriding only values explicitly passed
           -- by the server configuration above. Useful when disabling
           -- certain features of an LSP (for example, turning off formatting for ts_ls)

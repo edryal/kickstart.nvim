@@ -68,6 +68,25 @@ vim.opt.breakindent = true
 -- Disable line wrapping
 vim.opt.wrap = false
 
+-- Expand tabs into spaces
+vim.opt.expandtab = true
+
+-- Use 4 spaces for tabs
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+
+-- Use 2 spaces for these filetypes
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'javascript', 'typescript', 'html', 'css', 'lua' },
+  callback = function()
+    vim.opt_local.expandtab = true
+    vim.opt_local.tabstop = 2
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.softtabstop = 2
+  end,
+})
+
 -- Save undo history
 vim.opt.undofile = true
 
